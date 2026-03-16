@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/CMakeFiles/stb-populate"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/CMakeFiles/f1b7114df482c0af96ff16a259e3336c/stb-populate.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/CMakeFiles/91bb48313ebaef2d6918060f4fc5360c/stb-populate-complete.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/CMakeFiles/a57fc7d48b08b7c384c36df81080fffe/stb-populate-build.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/CMakeFiles/a57fc7d48b08b7c384c36df81080fffe/stb-populate-configure.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/CMakeFiles/a57fc7d48b08b7c384c36df81080fffe/stb-populate-download.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/CMakeFiles/a57fc7d48b08b7c384c36df81080fffe/stb-populate-install.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/CMakeFiles/a57fc7d48b08b7c384c36df81080fffe/stb-populate-mkdir.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/CMakeFiles/a57fc7d48b08b7c384c36df81080fffe/stb-populate-patch.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/CMakeFiles/a57fc7d48b08b7c384c36df81080fffe/stb-populate-test.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/CMakeFiles/a57fc7d48b08b7c384c36df81080fffe/stb-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"stb-populate"
+		],
+		"name" : "stb-populate"
+	}
+}

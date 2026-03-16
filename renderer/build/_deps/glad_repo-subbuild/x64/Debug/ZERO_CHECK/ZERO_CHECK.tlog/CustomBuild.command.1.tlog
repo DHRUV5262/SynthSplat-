@@ -1,0 +1,10 @@
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\GLAD_REPO-SUBBUILD\CMAKEFILES\4A7EB3797E7CD702158FF903BBA22903\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/C++/3D SynthSplat-/renderer/build/_deps/glad_repo-subbuild" "-BD:/C++/3D SynthSplat-/renderer/build/_deps/glad_repo-subbuild" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "D:/C++/3D SynthSplat-/renderer/build/_deps/glad_repo-subbuild/glad_repo-populate.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

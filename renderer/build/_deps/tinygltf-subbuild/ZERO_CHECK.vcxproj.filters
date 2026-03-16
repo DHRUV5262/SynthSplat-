@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\tinygltf-subbuild\CMakeFiles\1972a1b9b1a614078c008165682fad43\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{5907F08F-C406-387F-B82D-C8A88EBE50CF}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

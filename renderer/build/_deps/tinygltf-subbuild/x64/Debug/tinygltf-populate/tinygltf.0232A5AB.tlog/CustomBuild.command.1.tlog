@@ -1,0 +1,150 @@
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\TINYGLTF-SUBBUILD\CMAKEFILES\5ECA516C0F20E43EF3FCD4F356037D6E\TINYGLTF-POPULATE-MKDIR.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -Dcfgdir=/Debug -P "D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild/tinygltf-populate-prefix/tmp/tinygltf-populate-mkdirs.cmake"
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild/tinygltf-populate-prefix/src/tinygltf-populate-stamp/Debug/tinygltf-populate-mkdir"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\TINYGLTF-SUBBUILD\CMAKEFILES\5ECA516C0F20E43EF3FCD4F356037D6E\TINYGLTF-POPULATE-DOWNLOAD.RULE
+setlocal
+cd "D:\C++\3D SynthSplat-\renderer\build\_deps"
+if %errorlevel% neq 0 goto :cmEnd
+D:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P "D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild/tinygltf-populate-prefix/tmp/tinygltf-populate-gitclone.cmake"
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild/tinygltf-populate-prefix/src/tinygltf-populate-stamp/Debug/tinygltf-populate-download"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\TINYGLTF-SUBBUILD\CMAKEFILES\5ECA516C0F20E43EF3FCD4F356037D6E\TINYGLTF-POPULATE-UPDATE.RULE
+setlocal
+cd "D:\C++\3D SynthSplat-\renderer\build\_deps\tinygltf-src"
+if %errorlevel% neq 0 goto :cmEnd
+D:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -Dcan_fetch=YES -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P "D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild/tinygltf-populate-prefix/tmp/tinygltf-populate-gitupdate.cmake"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\TINYGLTF-SUBBUILD\CMAKEFILES\5ECA516C0F20E43EF3FCD4F356037D6E\TINYGLTF-POPULATE-PATCH.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild/tinygltf-populate-prefix/src/tinygltf-populate-stamp/Debug/tinygltf-populate-patch"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\TINYGLTF-SUBBUILD\CMAKEFILES\5ECA516C0F20E43EF3FCD4F356037D6E\TINYGLTF-POPULATE-CONFIGURE.RULE
+setlocal
+cd "D:\C++\3D SynthSplat-\renderer\build\_deps\tinygltf-build"
+if %errorlevel% neq 0 goto :cmEnd
+D:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild/tinygltf-populate-prefix/src/tinygltf-populate-stamp/Debug/tinygltf-populate-configure"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\TINYGLTF-SUBBUILD\CMAKEFILES\5ECA516C0F20E43EF3FCD4F356037D6E\TINYGLTF-POPULATE-BUILD.RULE
+setlocal
+cd "D:\C++\3D SynthSplat-\renderer\build\_deps\tinygltf-build"
+if %errorlevel% neq 0 goto :cmEnd
+D:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild/tinygltf-populate-prefix/src/tinygltf-populate-stamp/Debug/tinygltf-populate-build"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\TINYGLTF-SUBBUILD\CMAKEFILES\5ECA516C0F20E43EF3FCD4F356037D6E\TINYGLTF-POPULATE-INSTALL.RULE
+setlocal
+cd "D:\C++\3D SynthSplat-\renderer\build\_deps\tinygltf-build"
+if %errorlevel% neq 0 goto :cmEnd
+D:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild/tinygltf-populate-prefix/src/tinygltf-populate-stamp/Debug/tinygltf-populate-install"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\TINYGLTF-SUBBUILD\CMAKEFILES\5ECA516C0F20E43EF3FCD4F356037D6E\TINYGLTF-POPULATE-TEST.RULE
+setlocal
+cd "D:\C++\3D SynthSplat-\renderer\build\_deps\tinygltf-build"
+if %errorlevel% neq 0 goto :cmEnd
+D:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild/tinygltf-populate-prefix/src/tinygltf-populate-stamp/Debug/tinygltf-populate-test"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\TINYGLTF-SUBBUILD\CMAKEFILES\DC56D8C7063DECCA766C6B254824B7B3\TINYGLTF-POPULATE-COMPLETE.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild/CMakeFiles/Debug"
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild/CMakeFiles/Debug/tinygltf-populate-complete"
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild/tinygltf-populate-prefix/src/tinygltf-populate-stamp/Debug/tinygltf-populate-done"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\TINYGLTF-SUBBUILD\CMAKEFILES\1972A1B9B1A614078C008165682FAD43\TINYGLTF-POPULATE.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\TINYGLTF-SUBBUILD\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild" "-BD:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild" --check-stamp-file "D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

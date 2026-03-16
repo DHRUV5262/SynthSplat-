@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\stb-subbuild\CMakeFiles\a57fc7d48b08b7c384c36df81080fffe\stb-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\stb-subbuild\CMakeFiles\a57fc7d48b08b7c384c36df81080fffe\stb-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\stb-subbuild\CMakeFiles\a57fc7d48b08b7c384c36df81080fffe\stb-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\stb-subbuild\CMakeFiles\a57fc7d48b08b7c384c36df81080fffe\stb-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\stb-subbuild\CMakeFiles\a57fc7d48b08b7c384c36df81080fffe\stb-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\stb-subbuild\CMakeFiles\a57fc7d48b08b7c384c36df81080fffe\stb-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\stb-subbuild\CMakeFiles\a57fc7d48b08b7c384c36df81080fffe\stb-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\stb-subbuild\CMakeFiles\a57fc7d48b08b7c384c36df81080fffe\stb-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\stb-subbuild\CMakeFiles\91bb48313ebaef2d6918060f4fc5360c\stb-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\stb-subbuild\CMakeFiles\f1b7114df482c0af96ff16a259e3336c\stb-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\stb-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\C++\3D SynthSplat-\renderer\build\_deps\stb-subbuild\CMakeFiles\stb-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{07095CF7-2421-3BE4-8769-1B965BB31230}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

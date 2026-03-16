@@ -1,0 +1,150 @@
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\STB-SUBBUILD\CMAKEFILES\A57FC7D48B08B7C384C36DF81080FFFE\STB-POPULATE-MKDIR.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -Dcfgdir=/Debug -P "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/stb-populate-prefix/tmp/stb-populate-mkdirs.cmake"
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/Debug/stb-populate-mkdir"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\STB-SUBBUILD\CMAKEFILES\A57FC7D48B08B7C384C36DF81080FFFE\STB-POPULATE-DOWNLOAD.RULE
+setlocal
+cd "D:\C++\3D SynthSplat-\renderer\build\_deps"
+if %errorlevel% neq 0 goto :cmEnd
+D:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/stb-populate-prefix/tmp/stb-populate-gitclone.cmake"
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/Debug/stb-populate-download"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\STB-SUBBUILD\CMAKEFILES\A57FC7D48B08B7C384C36DF81080FFFE\STB-POPULATE-UPDATE.RULE
+setlocal
+cd "D:\C++\3D SynthSplat-\renderer\build\_deps\stb-src"
+if %errorlevel% neq 0 goto :cmEnd
+D:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -Dcan_fetch=YES -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/stb-populate-prefix/tmp/stb-populate-gitupdate.cmake"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\STB-SUBBUILD\CMAKEFILES\A57FC7D48B08B7C384C36DF81080FFFE\STB-POPULATE-PATCH.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/Debug/stb-populate-patch"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\STB-SUBBUILD\CMAKEFILES\A57FC7D48B08B7C384C36DF81080FFFE\STB-POPULATE-CONFIGURE.RULE
+setlocal
+cd "D:\C++\3D SynthSplat-\renderer\build\_deps\stb-build"
+if %errorlevel% neq 0 goto :cmEnd
+D:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/Debug/stb-populate-configure"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\STB-SUBBUILD\CMAKEFILES\A57FC7D48B08B7C384C36DF81080FFFE\STB-POPULATE-BUILD.RULE
+setlocal
+cd "D:\C++\3D SynthSplat-\renderer\build\_deps\stb-build"
+if %errorlevel% neq 0 goto :cmEnd
+D:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/Debug/stb-populate-build"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\STB-SUBBUILD\CMAKEFILES\A57FC7D48B08B7C384C36DF81080FFFE\STB-POPULATE-INSTALL.RULE
+setlocal
+cd "D:\C++\3D SynthSplat-\renderer\build\_deps\stb-build"
+if %errorlevel% neq 0 goto :cmEnd
+D:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/Debug/stb-populate-install"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\STB-SUBBUILD\CMAKEFILES\A57FC7D48B08B7C384C36DF81080FFFE\STB-POPULATE-TEST.RULE
+setlocal
+cd "D:\C++\3D SynthSplat-\renderer\build\_deps\stb-build"
+if %errorlevel% neq 0 goto :cmEnd
+D:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/Debug/stb-populate-test"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\STB-SUBBUILD\CMAKEFILES\91BB48313EBAEF2D6918060F4FC5360C\STB-POPULATE-COMPLETE.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/CMakeFiles/Debug"
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/CMakeFiles/Debug/stb-populate-complete"
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/Debug/stb-populate-done"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\STB-SUBBUILD\CMAKEFILES\F1B7114DF482C0AF96FF16A259E3336C\STB-POPULATE.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\STB-SUBBUILD\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild" "-BD:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild" --check-stamp-file "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

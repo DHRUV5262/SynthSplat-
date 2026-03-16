@@ -1,0 +1,10 @@
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\STB-SUBBUILD\CMAKEFILES\F1B7114DF482C0AF96FF16A259E3336C\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild" "-BD:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "D:/C++/3D SynthSplat-/renderer/build/_deps/stb-subbuild/stb-populate.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,14 @@
+# Target labels
+ glfw-populate
+# Source files and their labels
+D:/C++/3D SynthSplat-/renderer/build/_deps/glfw-subbuild/CMakeFiles/glfw-populate
+D:/C++/3D SynthSplat-/renderer/build/_deps/glfw-subbuild/CMakeFiles/ad35982f4dd000454fc5336fe96a8d1c/glfw-populate.rule
+D:/C++/3D SynthSplat-/renderer/build/_deps/glfw-subbuild/CMakeFiles/5238f6aebb965e7a0e1ffc3f2b972810/glfw-populate-complete.rule
+D:/C++/3D SynthSplat-/renderer/build/_deps/glfw-subbuild/CMakeFiles/2d67b2c3361fdfe8b480f89ae9061b7b/glfw-populate-build.rule
+D:/C++/3D SynthSplat-/renderer/build/_deps/glfw-subbuild/CMakeFiles/2d67b2c3361fdfe8b480f89ae9061b7b/glfw-populate-configure.rule
+D:/C++/3D SynthSplat-/renderer/build/_deps/glfw-subbuild/CMakeFiles/2d67b2c3361fdfe8b480f89ae9061b7b/glfw-populate-download.rule
+D:/C++/3D SynthSplat-/renderer/build/_deps/glfw-subbuild/CMakeFiles/2d67b2c3361fdfe8b480f89ae9061b7b/glfw-populate-install.rule
+D:/C++/3D SynthSplat-/renderer/build/_deps/glfw-subbuild/CMakeFiles/2d67b2c3361fdfe8b480f89ae9061b7b/glfw-populate-mkdir.rule
+D:/C++/3D SynthSplat-/renderer/build/_deps/glfw-subbuild/CMakeFiles/2d67b2c3361fdfe8b480f89ae9061b7b/glfw-populate-patch.rule
+D:/C++/3D SynthSplat-/renderer/build/_deps/glfw-subbuild/CMakeFiles/2d67b2c3361fdfe8b480f89ae9061b7b/glfw-populate-test.rule
+D:/C++/3D SynthSplat-/renderer/build/_deps/glfw-subbuild/CMakeFiles/2d67b2c3361fdfe8b480f89ae9061b7b/glfw-populate-update.rule

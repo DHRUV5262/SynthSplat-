@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/glad_repo-subbuild/CMakeFiles/glad_repo-populate"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/glad_repo-subbuild/CMakeFiles/4a7eb3797e7cd702158ff903bba22903/glad_repo-populate.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/glad_repo-subbuild/CMakeFiles/ad9ae1dcb5b58c338535655c6644c5fe/glad_repo-populate-complete.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/glad_repo-subbuild/CMakeFiles/ec3a8cc8cbf6f0d02233e6731cea5205/glad_repo-populate-build.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/glad_repo-subbuild/CMakeFiles/ec3a8cc8cbf6f0d02233e6731cea5205/glad_repo-populate-configure.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/glad_repo-subbuild/CMakeFiles/ec3a8cc8cbf6f0d02233e6731cea5205/glad_repo-populate-download.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/glad_repo-subbuild/CMakeFiles/ec3a8cc8cbf6f0d02233e6731cea5205/glad_repo-populate-install.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/glad_repo-subbuild/CMakeFiles/ec3a8cc8cbf6f0d02233e6731cea5205/glad_repo-populate-mkdir.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/glad_repo-subbuild/CMakeFiles/ec3a8cc8cbf6f0d02233e6731cea5205/glad_repo-populate-patch.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/glad_repo-subbuild/CMakeFiles/ec3a8cc8cbf6f0d02233e6731cea5205/glad_repo-populate-test.rule"
+		},
+		{
+			"file" : "D:/C++/3D SynthSplat-/renderer/build/_deps/glad_repo-subbuild/CMakeFiles/ec3a8cc8cbf6f0d02233e6731cea5205/glad_repo-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"glad_repo-populate"
+		],
+		"name" : "glad_repo-populate"
+	}
+}

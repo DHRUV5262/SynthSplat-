@@ -1,0 +1,12 @@
+{
+	"InstallScripts" : 
+	[
+		"D:/C++/3D SynthSplat-/renderer/build/cmake_install.cmake",
+		"D:/C++/3D SynthSplat-/renderer/build/_deps/glm-build/cmake_install.cmake",
+		"D:/C++/3D SynthSplat-/renderer/build/_deps/glm-build/glm/cmake_install.cmake",
+		"D:/C++/3D SynthSplat-/renderer/build/_deps/glfw-build/cmake_install.cmake",
+		"D:/C++/3D SynthSplat-/renderer/build/_deps/glfw-build/src/cmake_install.cmake",
+		"D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

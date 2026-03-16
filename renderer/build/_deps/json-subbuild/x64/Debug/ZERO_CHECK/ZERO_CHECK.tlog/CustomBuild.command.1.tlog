@@ -1,0 +1,10 @@
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\JSON-SUBBUILD\CMAKEFILES\9DA92C602E36E3E5D400ECD0992C43B4\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/C++/3D SynthSplat-/renderer/build/_deps/json-subbuild" "-BD:/C++/3D SynthSplat-/renderer/build/_deps/json-subbuild" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "D:/C++/3D SynthSplat-/renderer/build/_deps/json-subbuild/json-populate.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

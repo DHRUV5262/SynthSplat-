@@ -1,0 +1,10 @@
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\TINYGLTF-SUBBUILD\CMAKEFILES\1972A1B9B1A614078C008165682FAD43\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild" "-BD:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-subbuild/tinygltf-populate.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,6 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-4.2/Modules/CMakePackageConfigHelpers.cmake
+C:/Program Files/CMake/share/cmake-4.2/Modules/GNUInstallDirs.cmake
+C:/Program Files/CMake/share/cmake-4.2/Modules/WriteBasicConfigVersionFile.cmake
+D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-src/CMakeLists.txt
+D:/C++/3D SynthSplat-/renderer/build/_deps/tinygltf-src/cmake/TinyGLTFConfig.cmake.in

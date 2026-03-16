@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\json-subbuild\CMakeFiles\32b89ee39d1a9c18fe6420052490b494\json-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\json-subbuild\CMakeFiles\32b89ee39d1a9c18fe6420052490b494\json-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\json-subbuild\CMakeFiles\32b89ee39d1a9c18fe6420052490b494\json-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\json-subbuild\CMakeFiles\32b89ee39d1a9c18fe6420052490b494\json-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\json-subbuild\CMakeFiles\32b89ee39d1a9c18fe6420052490b494\json-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\json-subbuild\CMakeFiles\32b89ee39d1a9c18fe6420052490b494\json-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\json-subbuild\CMakeFiles\32b89ee39d1a9c18fe6420052490b494\json-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\json-subbuild\CMakeFiles\32b89ee39d1a9c18fe6420052490b494\json-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\json-subbuild\CMakeFiles\4b0f6a8a6379c059700d70b67aa0d89d\json-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\json-subbuild\CMakeFiles\9da92c602e36e3e5d400ecd0992c43b4\json-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\C++\3D SynthSplat-\renderer\build\_deps\json-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\C++\3D SynthSplat-\renderer\build\_deps\json-subbuild\CMakeFiles\json-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{17C1F943-33A3-3042-A316-2CAF78D6E175}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

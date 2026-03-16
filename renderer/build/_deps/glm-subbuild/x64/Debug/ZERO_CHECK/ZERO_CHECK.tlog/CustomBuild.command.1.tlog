@@ -1,0 +1,10 @@
+^D:\C++\3D SYNTHSPLAT-\RENDERER\BUILD\_DEPS\GLM-SUBBUILD\CMAKEFILES\0EDC18393FC6C6FF0E7042EC916C5D4D\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/C++/3D SynthSplat-/renderer/build/_deps/glm-subbuild" "-BD:/C++/3D SynthSplat-/renderer/build/_deps/glm-subbuild" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "D:/C++/3D SynthSplat-/renderer/build/_deps/glm-subbuild/glm-populate.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
