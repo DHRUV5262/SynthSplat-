@@ -16,7 +16,8 @@ int main() {
     const int WIDTH = 800;
     const int HEIGHT = 800;
     const std::string ASSET_PATH = "assets/DamagedHelmet.glb";
-    const std::string OUTPUT_DIR = "output";
+    // Output to project root (assuming running from build/ directory)
+    const std::string OUTPUT_DIR = "../output";
 
     // Ensure output directory exists
     if (!fs::exists(OUTPUT_DIR)) {
