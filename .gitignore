@@ -1,0 +1,30 @@
+### Build artifacts
+renderer/build/
+renderer/output/
+trainer/checkpoints/
+trainer/eval_results/
+
+### Python
+*.pyc
+__pycache__/
+.venv/
+.pytest_cache/
+
+### CMake / VS
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.sln
+*.vcxproj*
+*.user
+*/x64/
+
+### Logs and datasets
+*.log
+gsplat_build.log
+
+### OS files
+.DS_Store
+Thumbs.db
+
