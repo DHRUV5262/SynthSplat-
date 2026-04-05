@@ -1,18 +1,28 @@
-### Build artifacts
+# Build
 renderer/build/
 renderer/output/
-trainer/checkpoints/
-trainer/eval_results/
 
-### Python
+# Python
 *.pyc
 __pycache__/
 .venv/
 .pytest_cache/
 
-*.png
+# Training outputs
+trainer/checkpoints/
+trainer/eval_results/
+trainer/gaussians.ply
+trainer/training_log.csv
+training_log.csv
 
-### CMake / VS
+# Results / data folders
+SynthSplat_Results/
+Damaged Helmet/
+
+# Assets (large binary GLB files)
+renderer/assets/*.glb
+
+# CMake / VS
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
@@ -22,11 +32,21 @@ Makefile
 *.user
 */x64/
 
-### Logs and datasets
+# Binaries
+*.exe
+*.pdb
+*.obj
+*.lib
+*.ilk
 *.log
-gsplat_build.log
+*.tlog
+*.suo
+*.db
+*.bin
 
-### OS files
+# OS
 .DS_Store
 Thumbs.db
 
+# VS metadata
+.vs/

@@ -25,6 +25,9 @@ uniform vec3 uAlbedo;
 uniform float uMetallic;
 uniform float uRoughness;
 
+// Ground plane flag
+uniform bool isGroundPlane;
+
 // Lights
 uniform vec3 lightDir;
 uniform vec3 lightColor;
@@ -75,10 +78,17 @@ vec3 fresnelSchlick(float cosTheta, vec3 F0)
 // ----------------------------------------------------------------------------
 void main()
 {		
-    // Sample textures
-    vec3 albedo = hasAlbedoMap ? pow(texture(albedoMap, TexCoords).rgb, vec3(2.2)) : uAlbedo;
-    float metallic = hasMetallicRoughnessMap ? texture(metallicRoughnessMap, TexCoords).b : uMetallic;
-    float roughness = hasMetallicRoughnessMap ? texture(metallicRoughnessMap, TexCoords).g : uRoughness;
+    // Ground plane - solid green color like grass/turf
+    vec3 albedo;
+    if (isGroundPlane) {
+        // Nice grass green color
+        albedo = vec3(0.2, 0.5, 0.15);
+    } else {
+        // Sample textures
+        albedo = hasAlbedoMap ? pow(texture(albedoMap, TexCoords).rgb, vec3(2.2)) : uAlbedo;
+    }
+    float metallic = isGroundPlane ? 0.0 : (hasMetallicRoughnessMap ? texture(metallicRoughnessMap, TexCoords).b : uMetallic);
+    float roughness = isGroundPlane ? 0.7 : (hasMetallicRoughnessMap ? texture(metallicRoughnessMap, TexCoords).g : uRoughness);
     float ao = hasAoMap ? texture(aoMap, TexCoords).r : 1.0;
     vec3 emissive = hasEmissiveMap ? texture(emissiveMap, TexCoords).rgb : vec3(0.0);
     
@@ -140,6 +150,23 @@ void main()
         float NdotL = max(dot(N, L), 0.0);        
 
         Lo += (kD * albedo / PI + specular) * radiance * NdotL; 
+    }
+
+    // View-aligned fill ("headlight"): clearer highlights and edges — raster PBR, not ray tracing
+    {
+        vec3 L = normalize(V);
+        vec3 radiance = vec3(0.42, 0.46, 0.52) * 4.5;
+        float NdotL = max(dot(N, L), 0.0);
+        vec3 H = normalize(V + L);
+        float NDF = DistributionGGX(N, H, roughness);
+        float G = GeometrySmith(N, V, L, roughness);
+        vec3 F = fresnelSchlick(max(dot(H, V), 0.0), F0);
+        vec3 numerator = NDF * G * F;
+        float denominator = 4.0 * max(dot(N, V), 0.0) * max(dot(N, L), 0.0) + 0.0001;
+        vec3 specular = numerator / denominator;
+        vec3 kS = F;
+        vec3 kD = (vec3(1.0) - kS) * (1.0 - metallic);
+        Lo += (kD * albedo / PI + specular) * radiance * NdotL;
     }
     
     // Ambient lighting (simple constant ambient)

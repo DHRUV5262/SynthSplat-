@@ -14,6 +14,10 @@ struct CameraData {
     int width;
     int height;
     float fov_degrees;
+    /// World-space AABB center / radius of the rendered scene (same on every frame).
+    /// Used by the Python trainer to initialize Gaussians in the right place and scale.
+    glm::vec3 scene_center{0.0f};
+    float scene_radius{1.0f};
 
     nlohmann::json toJson() const;
 };
@@ -26,7 +30,8 @@ public:
     glm::mat4 getProjectionMatrix() const;
     glm::vec3 getPosition() const;
 
-    static std::vector<Camera> generateOrbitPath(int count, float radius, glm::vec3 target);
+    static std::vector<Camera> generateOrbitPath(int count, float radius, glm::vec3 target,
+                                                  float aspect = 1.0f);
 
 private:
     glm::vec3 m_position;

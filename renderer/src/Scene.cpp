@@ -25,11 +25,23 @@ Scene::~Scene() {
 }
 
 bool Scene::load(const std::string& path) {
+    // Clear any previous data
+    m_meshes.clear();
+    m_textures.clear();
+    m_materials.clear();
+    m_textureMap.clear();
+    
     tinygltf::TinyGLTF loader;
     std::string err;
     std::string warn;
 
-    bool ret = loader.LoadBinaryFromFile(&m_model, &err, &warn, path);
+    // Detect file type by extension
+    bool ret = false;
+    if (path.size() >= 4 && path.substr(path.size() - 4) == ".glb") {
+        ret = loader.LoadBinaryFromFile(&m_model, &err, &warn, path);
+    } else {
+        ret = loader.LoadASCIIFromFile(&m_model, &err, &warn, path);
+    }
 
     if (!warn.empty()) {
         std::cout << "TinyGLTF Warning: " << warn << std::endl;
@@ -90,14 +102,12 @@ void Scene::calculateBounds(const tinygltf::Node& node, const tinygltf::Model& m
         }
     }
 
-    if (node.mesh > -1) {
+    if (node.mesh > -1 && static_cast<size_t>(node.mesh) < m_meshes.size()) {
         const Mesh& mesh = m_meshes[node.mesh];
-        for (const auto& prim : mesh.primitives) {
-             // We need access to vertex data here, but we stored it in VBO.
-             // For simplicity, let's just use the accessors from the model again or store bounds in Mesh.
-             // Let's iterate accessors again.
-             const tinygltf::Mesh& gltfMesh = model.meshes[node.mesh];
-             const tinygltf::Primitive& gltfPrim = gltfMesh.primitives[(&prim - &mesh.primitives[0])]; // Hacky index finding
+        const tinygltf::Mesh& gltfMesh = model.meshes[node.mesh];
+        
+        for (size_t primIdx = 0; primIdx < mesh.primitives.size() && primIdx < gltfMesh.primitives.size(); ++primIdx) {
+             const tinygltf::Primitive& gltfPrim = gltfMesh.primitives[primIdx];
              
              if (gltfPrim.attributes.find("POSITION") != gltfPrim.attributes.end()) {
                 const tinygltf::Accessor& accessor = model.accessors[gltfPrim.attributes.at("POSITION")];
@@ -147,6 +157,13 @@ void Scene::loadTextures(const tinygltf::Model& model) {
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+            GLfloat maxAniso = 1.0f;
+            glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY, &maxAniso);
+            if (maxAniso > 1.0f) {
+                glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY,
+                                (std::min)(16.0f, maxAniso));
+            }
 
             m_textureMap[i] = textureID;
         }
@@ -332,7 +349,7 @@ void Scene::processNode(const tinygltf::Node& node, const tinygltf::Model& model
         }
     }
 
-    if (node.mesh > -1) {
+    if (node.mesh > -1 && static_cast<size_t>(node.mesh) < m_meshes.size()) {
         // Draw mesh
         // Note: m_meshes index corresponds to model.meshes index because we pushed them in order
         const Mesh& mesh = m_meshes[node.mesh];
@@ -341,7 +358,7 @@ void Scene::processNode(const tinygltf::Node& node, const tinygltf::Model& model
 
         for (const auto& prim : mesh.primitives) {
             // Bind Material
-            if (prim.materialIndex > -1) {
+            if (prim.materialIndex > -1 && static_cast<size_t>(prim.materialIndex) < m_materials.size()) {
                 const Material& mat = m_materials[prim.materialIndex];
                 
                 // Helper lambda to bind texture

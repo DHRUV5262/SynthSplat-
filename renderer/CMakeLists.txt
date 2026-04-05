@@ -132,6 +132,13 @@ if(VARY_LIGHTING)
     target_compile_definitions(SynthSplat PRIVATE VARY_LIGHTING)
 endif()
 
-# Copy shaders and assets to build directory
+# Copy shaders and assets to build directory (first configure)
 file(COPY shaders DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
+
+# Re-copy every build so new GLBs in renderer/assets/ appear in build/assets/ automatically
+add_custom_command(TARGET SynthSplat POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_SOURCE_DIR}/shaders" "${CMAKE_BINARY_DIR}/shaders"
+    COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_SOURCE_DIR}/assets" "${CMAKE_BINARY_DIR}/assets"
+    COMMENT "Syncing shaders and assets to build directory"
+)
