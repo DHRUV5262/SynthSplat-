@@ -55,13 +55,6 @@ Dependencies are pulled with **CMake FetchContent** (`renderer/CMakeLists.txt`).
 - Clear color / sky must stay consistent with training: background compositing in gsplat uses **`RENDERER_BG_RGB = (0.15, 0.35, 0.72)`** in `train.py` — match the OpenGL clear / visible sky in `Renderer.cpp`.
 - Intrinsics in Python are derived from the stored projection matrix: `fx = |P[0][0]| * W/2`, `fy = |P[1][1]| * H/2`, principal point at image center (`dataset.py`).
 
-### Scene modes (`main.cpp`)
-
-1. **Cafe + optional character (GLB)** — outside orbit, batch render only.
-2. **City / large environment** — fly-through (WASD, mouse, Enter to lock pose, then 300 immersive views).
-
-Place assets under `renderer/assets/`; CMake copies `assets/` and `shaders/` into the build directory on each build.
-
 ---
 
 ## Training (technical)
