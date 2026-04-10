@@ -1,6 +1,6 @@
 # SynthSplat
 
-Synthetic multi-view data generation (custom OpenGL PBR renderer) plus **3D Gaussian Splatting** training (PyTorch + [gsplat](https://github.com/nerfstudio-project/gsplat)). No COLMAP, no real photos: camera intrinsics and extrinsics are **exact** from the renderer.
+Synthetic multi-view data generation (custom OpenGL PBR renderer) plus **3D Gaussian Splatting** training (PyTorch + [gsplat](https://github.com/nerfstudio-project/gsplat)).
 
 ---
 
@@ -106,7 +106,7 @@ Dependencies are pulled with **CMake FetchContent** (`renderer/CMakeLists.txt`).
 
 ### Loss
 
-- `0.9 * L1 + 0.1 * (1 - SSIM)` — heavier L1 tends to preserve thin structure vs patch-based SSIM.
+- `0.9 * L1 + 0.1 * (1 - SSIM)` —> heavier L1 tends to preserve thin structure vs patch-based SSIM.
 
 ### Scripts
 
