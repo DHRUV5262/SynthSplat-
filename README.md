@@ -157,7 +157,7 @@ Requires **NVIDIA GPU** with CUDA for gsplat training; CPU is not practical for 
 
 ## References
 
-- Kerbl et al., *3D Gaussian Splatting for Real-Time Radiance Field Rendering* (SIGGRAPH 2023).
+- [Kerbl et al., *3D Gaussian Splatting for Real-Time Radiance Field Rendering* (SIGGRAPH 2023).](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/)
 - [gsplat](https://github.com/nerfstudio-project/gsplat) — differentiable Gaussian rasterization used here.
 
 ---
