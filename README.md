@@ -57,7 +57,7 @@ Dependencies are pulled with **CMake FetchContent** (`renderer/CMakeLists.txt`).
 
 ---
 
-## Training (technical)
+## Training 
 
 ### Stack
 
