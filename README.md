@@ -1,136 +1,172 @@
 # SynthSplat
 
-Synthetic multi-view data generation (custom OpenGL PBR renderer) plus **3D Gaussian Splatting** training (PyTorch + [gsplat](https://github.com/nerfstudio-project/gsplat)). No COLMAP, no real photos: camera intrinsics and extrinsics are **exact** from the renderer.
+**SynthSplat** is a small end-to-end pipeline that turns a 3D model file (like a `.glb` scene) into a **3D Gaussian Splat** you can view in standard Gaussian Splatting tools. You do **not** need a real camera, a photo shoot, or a separate program to guess where the camera was. The project has two main halves: a **C++ renderer** that draws synthetic training images, and a **Python trainer** that learns a cloud of 3D Gaussians to match those images.
 
 ---
 
-## Architecture
+## What this project does (for newcomers)
 
-```
-┌─────────────────────┐     frame_*.png      ┌──────────────────────────┐
-│  C++ Renderer       │ ──────────────────►  │  Python trainer          │
-│  (OpenGL 4.6 Core)  │     cameras.json     │  train.py / Colab nb     │
-│  glTF/GLB → PNGs    │                      │  GaussianModel + gsplat   │
-└─────────────────────┘                      └────────────┬─────────────┘
-                                                        │
-                                                        ▼
-                                              checkpoints/*.pt, gaussians.ply
-```
+### The big picture
 
-- **Renderer** (`renderer/`): Loads `.glb`/`.gltf` via TinyGLTF, PBR shading, MSAA, exports PNGs + `cameras.json` (view/projection matrices, resolution, FOV, scene AABB center/radius).
-- **Trainer** (`trainer/`): Reads `renderer/output/`, initializes Gaussians inside the JSON scene bounds, optimizes with differentiable rasterization, densifies/prunes, exports a standard 3DGS-compatible binary PLY.
+**3D Gaussian Splatting** is a way to represent a 3D scene as many thousands (or millions) of tiny oriented blobs (“Gaussians”). Each blob has a position, size, orientation, opacity, and color that can change with viewing direction. A fast GPU renderer draws them so the scene looks correct from new viewpoints. That is what tools like **gsplat** help you train.
 
----
+Usually people **capture real photos** from many angles and run **COLMAP** (or similar) to estimate where each photo was taken. That works, but it can fail on shiny surfaces, plain walls, or when you simply do not have photos.
 
-## Renderer (technical)
+**SynthSplat takes a different path:** it uses a **program you control** (this renderer) to create “fake” photographs of a 3D model from known camera positions. Because the computer placed every virtual camera itself, **every number about the lens and the viewpoint is exact**. The training step then tries to reproduce those synthetic photos with Gaussians. When that works, you get a splat file (exported as **`.ply`**) that approximates your original 3D content.
 
-### Stack
+### Words you will see in this repo
 
-| Component | Role |
-|-----------|------|
-| **C++17** | Host code |
-| **OpenGL 4.6 Core** | Rasterization (GLAD loader) |
-| **GLFW 3.3** | Context + window (hidden for batch; visible for interactive city preview) |
-| **GLM** | `vec3`/`mat4`, `lookAt`, `perspective` |
-| **TinyGLTF** | Scene graph, meshes, materials, textures |
-| **stb_image_write** | PNG export |
-| **nlohmann/json** | `cameras.json` |
-
-Dependencies are pulled with **CMake FetchContent** (`renderer/CMakeLists.txt`). **GLAD** must be present under `renderer/src/` (see CMake error message if missing).
-
-### Output
-
-- The executable writes to **`../output` relative to the current working directory** (see `OUTPUT_DIR` in `main.cpp`). Typical Visual Studio runs use something like `renderer/build/bin/Debug/`, so frames often land in **`renderer/build/output/`**, not automatically in `renderer/output/`.
-- **Training** (`dataset.py`) loads **`renderer/output/`** (i.e. `<repo>/renderer/output/cameras.json` and `frame_*.png`). After rendering, **copy or move** `cameras.json` and all `frame_*.png` into `renderer/output/`, or symlink that folder to your build output path.
-- **Frames**: `frame_0000.png` … `frame_0299.png` (300 views by default).
-- **`cameras.json`**: array of per-frame records: `frame_id`, `filename`, `position`, `view_matrix`, `projection_matrix`, `width`, `height`, `fov_degrees`, `scene_center`, `scene_radius`.
-
-### Camera sampling
-
-- **Orbit mode** (`Camera::generateOrbitPath`): 8 elevation rings (5°–75°), azimuth stepped per ring; per-ring counts weighted by `cos(elevation)` so lower rings get more samples. Total count = 300.
-- **Immersive / city mode** (option 2 in `main.cpp`): interactive FPS preview, then `Camera::generateImmersivePath` from a locked eye position (see `Camera.cpp`).
-
-### Conventions
-
-- Clear color / sky must stay consistent with training: background compositing in gsplat uses **`RENDERER_BG_RGB = (0.15, 0.35, 0.72)`** in `train.py` — match the OpenGL clear / visible sky in `Renderer.cpp`.
-- Intrinsics in Python are derived from the stored projection matrix: `fx = |P[0][0]| * W/2`, `fy = |P[1][1]| * H/2`, principal point at image center (`dataset.py`).
+| Term | Plain-language meaning |
+|------|-------------------------|
+| **Synthetic data** | Images generated by a program instead of taken with a physical camera. |
+| **Multi-view** | Many pictures of the same scene from different positions and angles. |
+| **Intrinsics / extrinsics** | Lens properties (field of view, focal length) and camera position/orientation. Here they come straight from the math used to render, not from reconstruction. |
+| **COLMAP** | A common toolkit that estimates camera poses from real photos. This project does **not** need it for the main workflow. |
+| **PBR** | Physically based rendering: materials react to light in a somewhat realistic way (roughness, metallic workflows, etc., depending on the asset). |
+| **glTF / GLB** | Standard 3D file formats; **GLB** is the binary bundle (meshes + textures in one file). |
+| **gsplat** | A PyTorch library that can **differentiate** through Gaussian splat rendering so training can adjust Gaussians with gradient descent. |
+| **Densification** | During training, the optimizer can **split** or **duplicate** Gaussians where the image error is high, and **remove** useless ones—similar in spirit to the original 3D Gaussian Splatting paper. |
 
 ---
 
-## Training (technical)
-
-### Stack
-
-- **Python 3.10+**, **PyTorch**, **gsplat** (CUDA differentiable Gaussian rasterization).
-- See `trainer/requirements.txt` (pinned PyTorch CUDA wheels + `gsplat==1.4.0`).
-
-### Training data layout
-
-`SynthSplatDataset` expects:
+## How the pieces fit together
 
 ```
-<repo>/
+┌─────────────────────┐     PNG images +        ┌──────────────────────────┐
+│  C++ Renderer       │     camera metadata     │  Python trainer          │
+│  (OpenGL)             │ ───────────────────►  │  (PyTorch + gsplat)      │
+│  3D model → images    │     cameras.json       │  learns 3D Gaussians     │
+└─────────────────────┘                         └────────────┬─────────────┘
+                                                            │
+                                                            ▼
+                                                  checkpoints, then .ply
+```
+
+**In plain terms:** the renderer is the “data factory.” It writes numbered frames (`frame_0000.png`, …) and one JSON file listing, for each frame, which image file goes with which camera matrix. The trainer reads that folder, compares its own splat renders to your PNGs, and slowly improves the Gaussians.
+
+**Technical summary:**
+
+- **Renderer** (`renderer/`): loads `.glb`/`.gltf` via **TinyGLTF**, draws with **PBR** shaders, uses **MSAA**, and saves PNGs plus **`cameras.json`** (view and projection matrices, width/height, FOV, and a **scene bounding box** center and radius used to initialize Gaussians in sensible world coordinates).
+- **Trainer** (`trainer/`): expects those files under **`renderer/output/`**, builds a **`GaussianModel`**, runs **`gsplat`** rasterization, optionally grows/shrinks the Gaussian count, and can export a **binary PLY** compatible with common 3DGS viewers.
+
+---
+
+## The renderer (what it is, then the details)
+
+### What it is for
+
+The renderer exists only to produce **consistent, labeled** training images. You pick a scene mode in **`main.cpp`** (for example: orbit around a cafe, or fly through a city and lock a position). It then renders hundreds of views and writes **`cameras.json`** so Python never has to guess alignment.
+
+### Libraries it uses (and why each exists)
+
+| Piece | Role in simple terms |
+|-------|----------------------|
+| **C++17** | The language the executable is written in. |
+| **OpenGL 4.6 Core** | The graphics API that actually draws triangles on the GPU. **GLAD** loads the OpenGL function pointers your driver provides. |
+| **GLFW** | Creates the OpenGL **context** and, when needed, a window and input (for example fly mode for large scenes). Batch rendering can use a hidden window. |
+| **GLM** | Math for 3D: vectors, matrices, camera **lookAt** and **perspective** projection. |
+| **TinyGLTF** | Reads **glTF/GLB** files: meshes, materials, textures, scene graph. |
+| **stb_image_write** | Writes PNG files to disk without pulling in a huge image library. |
+| **nlohmann/json** | Writes **`cameras.json`** in a readable format. |
+
+CMake can download most dependencies automatically (**FetchContent**). **GLAD** must be placed under `renderer/src/` as described in **`CMakeLists.txt`** if configure fails.
+
+### Where files are saved (important)
+
+The program saves under **`../output` relative to the folder you run it from**, not always under `renderer/output/`. For example, if you run the `.exe` from **`renderer/build/bin/Debug`**, output often appears in **`renderer/build/output/`**.
+
+The Python dataset code, however, looks for **`renderer/output/`** next to the `renderer` source folder. **So after rendering, copy or symlink** `cameras.json` and all `frame_*.png` into **`renderer/output/`**, or adjust paths—otherwise training will not find your data.
+
+By default you get on the order of **300** frames (`frame_0000.png` …) and one **`cameras.json`** listing each frame’s filename, camera position, view matrix, projection matrix, resolution, FOV, and scene center/radius.
+
+### How cameras are placed
+
+- **Orbit mode:** the camera travels on a sphere-like path around the scene center, with several **elevation rings** so you see the subject from above, below, and around. The implementation spreads views across rings so lower rings (more horizontal) get more samples—useful for coverage.
+- **City / immersive mode:** you can **move with the keyboard and mouse**, then confirm a position; the program then generates views from that standpoint (see **`Camera::generateImmersivePath`** in `Camera.cpp`).
+
+### Matching colors between renderer and trainer
+
+Empty sky pixels must match between the OpenGL image and the splat renderer, or the optimizer chases the wrong target. The trainer uses a fixed background RGB **`(0.15, 0.35, 0.72)`** that should match the renderer’s clear color / sky treatment. If you change the sky in **`Renderer.cpp`**, update the same constant in **`train.py`** (`RENDERER_BG_RGB`).
+
+**Intrinsics in Python** are recovered from the stored projection matrix (focal lengths and principal point), so the splat camera matches the OpenGL camera without manual focal length typing.
+
+---
+
+## Training (what happens, then the details)
+
+### What training does
+
+Starting from many small Gaussians scattered inside the scene’s bounding sphere, the optimizer adjusts their positions, sizes, colors, and opacities so that **images rendered by gsplat** look like your PNGs. Over time it can **add** Gaussians where detail is missing and **remove** useless ones.
+
+### What you need installed
+
+- **Python 3.10+**, **PyTorch** with **CUDA**, and **`gsplat`** (see **`trainer/requirements.txt`**). Training on CPU only is not realistic for full runs.
+
+### Expected folder layout
+
+```
+your-repo/
   renderer/
     output/
       cameras.json
       frame_0000.png
       ...
+  trainer/
+    train.py
+    ...
 ```
 
-`train.py` resolves `renderer` as a sibling of `trainer` under the repo root and reads `renderer/output/`.
+### Gaussian representation (accessible + precise)
 
-### Gaussian representation
+Each Gaussian has a **position** in 3D, **scale** (how large along each axis), **rotation** (as a quaternion), and **opacity**. Color is encoded with **spherical harmonics** up to **degree 3**, which means the apparent color can change slightly as you orbit the object—similar to how the original 3DGS paper models view-dependent effects. In code, those harmonics are split into a **DC** term and **higher-frequency** terms (`sh_dc` and `sh_rest`).
 
-- **SH degree 3** → \((d+1)^2 = 16\) coefficients per channel → stored split as `sh_dc` \([N,1,3]\) and `sh_rest` \([N,15,3]\).
-- **Parameters**: 3D means, log-scales (3), quaternions (4), logit opacities (1).
-- **Init**: `INIT_NUM_POINTS` (e.g. 30k) points uniform in a sphere, shifted by `scene_center` and scaled by `scene_radius` from `cameras.json`.
+Initialization drops **`INIT_NUM_POINTS`** (for example 30k) random points inside a sphere aligned with **`scene_center`** and **`scene_radius`** from JSON, so the splat starts roughly where your model is.
 
-### Rasterization
+### Rasterization settings worth knowing
 
-- `gsplat.rendering.rasterization` with **`absgrad=True`** (screen-space gradients for densification).
-- **`backgrounds`**: shape **`(3,)`** float RGB matching the renderer (packed mode asserts this — not `(1,3)`).
-- **`eps2d`**: `RASTER_EPS2D` (minimum projected extent; affects sharpness vs stability).
+- **`absgrad=True`**: the library can store special gradients used for **densification** (deciding where to split or clone Gaussians). The training code must read the correct tensor (often **`.absgrad`**, not ordinary **`.grad`**) and **scale** those values into pixel-like units before comparing to thresholds—this was a subtle bug during development.
+- **`backgrounds`**: must be a length-3 RGB vector matching the renderer background (not a 1×3 matrix), or gsplat’s packed mode can assert.
+- **`eps2d`**: a small floor on projected size; it trades a bit of sharpness for numerical stability.
 
-### Pose / coordinates
+### Coordinate systems
 
-- JSON stores OpenGL-style **world-to-camera** `view_matrix`. Training builds **camera-to-world** `c2w = inverse(view)` and applies an OpenGL→OpenCV fix: multiply by `diag(1,-1,-1,1)` so gsplat’s camera convention matches the projection (`dataset.py`).
+The JSON stores a **world-to-camera** matrix in OpenGL-style coordinates. The dataset converts to **camera-to-world** and applies a fixed axis flip so **gsplat** (which expects a certain camera convention) sees the same pose as your OpenGL projection. All of that lives in **`dataset.py`**.
 
-### Densification & pruning (high level)
+### Densification, pruning, and opacity (short story)
 
-- **Gradient accumulation**: With `absgrad=True`, read **`means2d.absgrad`**, not `.grad`. Normalize to pixel space: scale x by `W/2 * n_cameras`, y by `H/2 * n_cameras` (see `accumulate_means2d_grads_for_densify` in `train.py`).
-- **Clone / split**: threshold on averaged gradient vs `GRAD_THRESH`; split vs clone by `CLONE_SPLIT_SCALE` on max axis scale.
-- **Prune**: low opacity and excessive world scale; **`MAX_SCALE_THRESH`** must be large enough for scene extent (e.g. buildings), or large Gaussians are culled and the reconstruction blurs.
-- **Min Gaussian floor**: e.g. `max(INIT_NUM_POINTS, 75_000)` so pruning cannot collapse the model.
-- **Prune start iteration**: delayed (e.g. ≥3000) so new Gaussians can learn opacity.
-- **Opacity reset**: periodic reset of logit opacities during densification window (forces re-learning, similar in spirit to original 3DGS practice).
+Over training iterations, the code:
 
-### Loss
+- **Accumulates** screen-space error signals to find where the model is wrong.
+- **Clones** small Gaussians or **splits** large ones where gradients are high.
+- **Prunes** Gaussians that are nearly invisible or unreasonably huge—but the **maximum allowed world scale** must be large enough for your scene (tiny thresholds deleted “building-sized” blobs and caused blur).
+- **Waits** several thousand iterations before aggressive opacity pruning so new Gaussians have time to become visible.
+- Occasionally **resets** opacities so the optimizer does not get stuck with semi-transparent blobs.
 
-- `0.9 * L1 + 0.1 * (1 - SSIM)` — heavier L1 tends to preserve thin structure vs patch-based SSIM.
+The **loss** blends **L1** (pixel-wise) and **SSIM** (structure); a heavier L1 weight tends to keep thin edges and small details that a patch-based SSIM might oversmooth.
 
 ### Scripts
 
-| File | Purpose |
-|------|---------|
-| `train.py` | Main optimization loop, checkpoints under `trainer/checkpoints/` |
-| `evaluate.py` | PSNR / SSIM / LPIPS vs dataset, saves side-by-side PNGs |
-| `export_ply.py` | Checkpoint → binary PLY (3DGS viewer compatible) |
-| `SynthSplat_Colab.ipynb` | Colab-oriented copy of the training workflow |
+| File | What it is for |
+|------|----------------|
+| **`train.py`** | Main training loop; writes **`training_log.csv`** and checkpoints under **`trainer/checkpoints/`**. |
+| **`evaluate.py`** | Compares trained splats to the dataset (PSNR, SSIM, LPIPS) and saves comparison images. |
+| **`export_ply.py`** | Converts a checkpoint to a **binary PLY** that many 3DGS viewers understand. |
+| **`SynthSplat_Colab.ipynb`** | Notebook version of the training workflow for cloud GPUs (e.g. Google Colab). |
 
 ---
 
-## Debugging notes (what actually broke in practice)
+## Common problems we hit (and what they mean)
 
-1. **Blurry output / collapse to few Gaussians** -> `MAX_SCALE_THRESH` too small (e.g. 0.5) prunes anything “large” in world units; scenes need a threshold consistent with **meters-scale** geometry (e.g. 12.0).
-2. **Densification idle / flat `num_gaussians`** -> wrong gradient source (`absgrad` path) and missing **screen-space scaling** of `means2d` gradients before comparing to `GRAD_THRESH`.
-3. **Sky / background artifacts** -> rasterizer background RGB must match renderer clear/sky; wrong tensor shape for `backgrounds` fails gsplat assertions.
-4. **PNG size vs JSON `width`/`height`** -> dataset resizes images to JSON dimensions to avoid silent misalignment.
+1. **Everything looks blurry and Gaussian count collapses** — The **maximum scale** used for pruning was too small for real-world-sized assets, so the trainer deleted any Gaussian large enough to represent a table or wall. Raising that threshold fixed it.
+2. **Gaussian count never grows** — Gradients for densification were read from the wrong place, or not scaled to pixel space, so thresholds never fired.
+3. **Weird colors in the sky or background** — The splat compositor’s background RGB did not match the renderer; or the background tensor had the wrong shape.
+4. **Misaligned images** — PNG resolution did not match **`width`/`height`** in JSON; the dataset resizes images to the JSON size to reduce silent misalignment.
 
 ---
 
-## Build & run (quick reference)
+## Build and run (step by step)
 
-### Renderer (Windows / CMake)
+### 1. Build the C++ renderer
 
 ```text
 cd renderer
@@ -138,26 +174,33 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release
 ```
 
-Run `SynthSplat` from the directory where `../output` and asset resolution match your intent (see `main.cpp` and `resolveDataPath`). Install **GLAD** into `renderer/src/` per `CMakeLists.txt` if configure fails.
+If CMake complains about **GLAD**, follow the instructions printed by **`CMakeLists.txt`** (generate OpenGL 4.6 Core loaders and place **`glad.c`** and headers under **`renderer/src/`**).
 
-### Trainer
+Run **`SynthSplat`**, then **copy** the generated **`output`** folder contents to **`renderer/output/`** if your executable wrote elsewhere (see above).
+
+### 2. Train and export
 
 ```text
 cd trainer
 python -m venv .venv
-.venv\Scripts\activate   # Windows
+.venv\Scripts\activate
 pip install -r requirements.txt
 python train.py
 python evaluate.py
 python export_ply.py --ckpt checkpoints/ckpt_final.pt --out gaussians.ply
 ```
 
-Requires **NVIDIA GPU** with CUDA for gsplat training; CPU is not practical for full runs.
+You need an **NVIDIA GPU** with a working **CUDA** stack for reasonable training times.
 
+---
 
 ## References
 
-- Kerbl et al., *3D Gaussian Splatting for Real-Time Radiance Field Rendering* (SIGGRAPH 2023).
-- [gsplat](https://github.com/nerfstudio-project/gsplat) — differentiable Gaussian rasterization used here.
+- Kerbl et al., *3D Gaussian Splatting for Real-Time Radiance Field Rendering* (SIGGRAPH 2023) — the original method this trainer is inspired by.
+- [gsplat](https://github.com/nerfstudio-project/gsplat) — differentiable Gaussian rasterization for PyTorch.
 
 ---
+
+## License
+
+Add your license here if you distribute the project.
