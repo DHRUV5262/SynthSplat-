@@ -196,6 +196,6 @@ You need an **NVIDIA GPU** with a working **CUDA** stack for reasonable training
 
 ## References
 
-- Kerbl et al., *3D Gaussian Splatting for Real-Time Radiance Field Rendering* (SIGGRAPH 2023) — the original method this trainer is inspired by.
+- https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/
 - [gsplat](https://github.com/nerfstudio-project/gsplat) — differentiable Gaussian rasterization for PyTorch.
 
